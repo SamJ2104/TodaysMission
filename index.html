@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODAYS MISSION</title>
+    <link rel="manifest" href="manifest.json" />
+    <style>
+        body {
+            font-family: "Noto Sans", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            
+        }
+        #container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(250, 250, 250, 250.1);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body onload="showRandomItem()">
+    <div id="container">
+        <h1>TODAYS MISSION:</h1>
+        <h2 id="item-display"></h2>
+        <button onclick="showRandomItem()">new mission</button>
+    </div>
+
+    <script>
+        const jsonArray = [
+            "see how many times you can sneak the phrase Legend has it in a conversation",
+            "mid-conversation stop talking look directly in their eyes and say please wake up and then continue the conversation like nothing ever happened",
+            "see how many things you can slip into people's pockets unnoticed",
+            "put high voltage signs on every chain link fence you see",
+            "hold the door open for someone from absurdly far away while smiling at them the whole time",
+            "in a crowded public area scream in your head to find the nearest telepath",
+            "asking someone if they've ever experienced deja vu then tomorrow ask them again",
+            "place a small note on a nice car that says I'm so sorry for scratching your car",
+            "during conversation see how long you can mimic the other person's actions before they take notice",
+            "leave a note on someone's desk to call back Mr bear with the number to the local Zoo",
+            "your friend whisper I didn't say anything and when they asked what you said reply with I didn't say anything",
+            "call a random number say coordinates and then hang up",
+            "ask someone if they've ever experienced deja vu then tomorrow ask them again",
+            "draw a happy face on an orange and lean it on someone's doorstep",
+            "super glue a coin to the ground and see how many people try to pick it up",
+            "see how many times you can change your clothes before your friends take notice",
+            "add unnecessary air quotes around words that don't need them",
+            "make a fake shopping list and leave it in a random cart at the store",
+            "your social setting signal to your friend that they have a booger in their nose every five minutes",
+            "put up dry paint signs all around town",
+            "at the grocery store by a single grape  the fourth wall wait what does that mean",
+            "text a person you haven't talked to in a while I'm sorry I broke our Pact",
+            "you just lost the game  keep the day's mission replace your family photos with pictures of Nicholas Cage",
+            "see how many random things you can get someone to hold for you while talking to them",
+            "call in and quit a job that you don't work at",
+            "ask a stranger for directions and then walk the complete opposite way",
+            "during conversation start whispering as if you're telling a secret and see how long it takes to get your friends to join",
+            "in a public bathroom write a sign on the mirror that says is this what you wanted to be when you grew up",
+            "see how long you can maintain a conversation by just repeating back what they said to you",
+            "mail someone a potato no box no envelope just a stamp and an address",
+            "get a bad song stuck in your friend's head",
+            "start a conversation in a public bathroom storms and then pretend that you were on the phone",
+            "at a red light motion for the car next to you to roll their window down when they do say your window is down and drive away",
+            "when eating dinner with a group only ask questions in front of a completely innocuous sentence",
+            "hide a bunch of pennies around someone's house",
+            "while telling a friend about a dream describe the exact same scenario you're currently in and then look behind them horrified",
+            "when ordering at a place that asks for your name use the name for the cashier's name tag no matter what it is",
+            "will smear a little chocolate sauce on a toilet paper roll yummy",
+            "during conversation slowly add yourself closer to someone until they catch on",
+            "what a note that says gullible along the ceiling",
+            "when someone's walking behind you and you turn a corner or quietly Sprint as fast as you can before they turn the corner so it looks like you teleported",
+            "using a water repellent right my body is in the river on a hotel and bathroom mirror",
+            "find the nearest unhoused person by you and give them a pack of new socks",
+            "get someone to hold an elevator door for you thank them wait for a moment exclaim this is my floor and get out before the doors close",
+            "share a personal story with a friend and see how long you can describe the plot of a popular movie before they get you on the soul test",
+            "at the store grab a bottle of liquor and container of baby formula one at the register have only enough money for one return the baby formula",
+            "see how many times you can switch an item between your pockets the bigger the better", 
+            "write a list of your friends names cross out some of those and then leave the list somewhere as if by accident",
+            "replace a roll of toilet paper with a roll of duct tape",
+            "see how long you can get someone to stare at a blank screen for no reason",
+            "at a friend's house leave a framing picture of yourself somewhere in their room put ashes in a bag with a grandpa written on it and place it on top of a public trash can",
+            "during conversations that gradually turn away until you're facing the opposite direction",
+            "stand in front of a bathroom until a line forms behind you and then just walk away",
+            "attack someone so we need to talk don't respond and then the next time talk about something boring today see how many non-food items you can hide in your friend's fridge before they notice notice",
+            "compliment a stranger on their shoes and ask if you can try them all",
+            "pretend to be a tourist and ask people to take photos of you in front of mundane objects like a stop sign stop",
+            "in the shower swap the contents of the shampoos and conditioner bottles",
+            "text your friend what's your ETA we're all waiting for you and then turn your phone off",
+            "when at a friend's house tilt one of their picture frames while looking them dead in the eye of the eye",
+            "should fill a donut box with vegetables and leave it for your colleagues",
+            "see how many sticky notes you can fit on your friend's back before they notice",
+            "ask a stranger to take a picture of you and then do as many weird poses as possible",
+            "during normal conversations to casually tell someone to calm down",
+            "put huge other door signs on every door in a building in a building",
+            "during conversations randomly freeze for a few seconds and then continue like nothing ever happened",
+            "days will start humming loudly in an elevator and then ask others if they can hear it too walk by someone with a watermelon wrapped in a blanket and bump into them or drop it and save my baby",
+            "set an alarm clock to go off at 3am and hide it under your friend's bed",
+            "swap real house plants real fake ones to see how long they take to notice",
+            "take care of yourself drink some water get to bed on time meet your parents brush your teeth get a little exercise take a shower please",  
+            "see how long you can go without blinking though before they notice",
+            "on random doors put up signs that say stay out secret meeting in progress",
+            "release your friends shoes upside down wear a fake mustache and pretend not to recognize your friends and family Friends mission provide a gourmet spread of chocolate covered cotton balls",
+            "see how long you can maintain a conversation without saying any words anymore",
+            "put a little red food coloring all over a toilet seat toilet",
+            "during conversation randomly gagged and then go back to normal go back to normal",
+            "go to a store and attempt to buy something with Monopoly money",
+            "tell your friend to check out this new song and then just play sounds of babies crying",
+            "during conversation see how long you can make up a story that has no real ending or middle or even a beginning just a series of weird tangents that get more surreal and absurd as you go on and don't let your let your friends get in a word edgewise just anytime they try to say anything just no no no and keep going just keep talking and until they don't even know what the hell is going on they're just like what the fuck are you",
+            "during conversation clap as many times as you can until the other person says something about it",
+            "in a public place see how many times you can change your accent during conversation with a stranger",
+            "replace someone's toothbrush with a child's toothbrush",
+            "during conversation see how many movie quotes you can slip in unnoticed unnoticed celebrity obviously not",
+            "like and comment under every single photo and video of a stranger's social media",
+            "pretend to take a phone call and receive horribly tragic news and then hang up and then pretend as if nothing ever happened nothing ever happened",
+            "during conversation intentionally mispronounce common words and when corrected act surprised",
+            "put out of order signs on all of the bathroom stalls"
+        ];
+
+        function showRandomItem() {
+            const randomIndex = Math.floor(Math.random() * jsonArray.length);
+            const item = jsonArray[randomIndex];
+            const displayElement = document.getElementById('item-display');
+            displayElement.innerHTML = item;
+        }
+    </script>
+</body>
+</html>
